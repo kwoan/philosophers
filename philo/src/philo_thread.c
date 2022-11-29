@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 23:12:03 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 16:36:59 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/11/29 21:13:44 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ void    *ft_thread(void *arg)
 void    *ft_monitor(void *arg)     ////////philo 죽는지, philo num_to_eat 확인
 {
     t_args  *args;
-    // long    curr_time;
     int     i;
 
     args = (t_args *)arg;
-    // curr_time = get_time();
     i = 0;
     while (!args->philos[i].stop)
     {

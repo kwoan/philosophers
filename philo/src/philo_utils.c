@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 03:29:28 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 16:37:29 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/11/29 20:51:27 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,24 @@ long    get_time(void)
 	return (ret);
 }
 
-void	ft_usleep(int ms)
-{
-	long	time;
-
-	time = get_time();
-	usleep(ms * 920);
-	while (get_time() < time + ms)
-		usleep(ms * 3);
-}
-
-// void	ft_usleep(int time)
+// void	ft_usleep(int ms)
 // {
-// 	long	curr;
+// 	long	time;
 
-// 	curr = get_time();
-// 	while (get_time() - curr < (long)time)
-// 		usleep(50);
+// 	time = get_time();
+// 	usleep(ms * 920);
+// 	while (get_time() < time + ms)
+// 		usleep(ms * 3);
 // }
+
+void	ft_usleep(int time)
+{
+	long	curr;
+
+	curr = get_time();
+	while (get_time() - curr < (long)time)
+		usleep(50);
+}
 
 int		ft_atoi(const char *str)
 {

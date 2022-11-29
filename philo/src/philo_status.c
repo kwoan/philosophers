@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 02:47:52 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 16:44:21 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/11/29 21:23:09 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	eating(t_philo *ph)
 	printf("%ld %d is eating\n", \
 		get_time() - ph->arg->time, ph->philo_nbr);
 	pthread_mutex_unlock(&ph->arg->print_mutex);
+	pthread_mutex_unlock(ph->r_f);
+	pthread_mutex_unlock(ph->l_f);
 	ph->n_eat++;
-	ph->time = get_time();							//////last eat meals time (for each philo)
+	ph->time = get_time();					
 	ft_usleep(ph->arg->t_eat);
 }
 
