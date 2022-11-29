@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:38:53 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 21:24:53 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/11/29 21:37:14 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	_init(t_args *args)
 {
 	int	i;
-	
+
 	i = -1;
 	args->dead = 0;
 	args->time = get_time();

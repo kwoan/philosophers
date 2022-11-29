@@ -6,31 +6,21 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 03:29:28 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 20:51:27 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/11/29 21:33:39 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-long    get_time(void)
+long	get_time(void)
 {
-	struct timeval  tv;
-	long            ret;
+	struct timeval	tv;
+	long			ret;
 
 	gettimeofday(&tv, NULL);
 	ret = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (ret);
 }
-
-// void	ft_usleep(int ms)
-// {
-// 	long	time;
-
-// 	time = get_time();
-// 	usleep(ms * 920);
-// 	while (get_time() < time + ms)
-// 		usleep(ms * 3);
-// }
 
 void	ft_usleep(int time)
 {
@@ -41,7 +31,7 @@ void	ft_usleep(int time)
 		usleep(50);
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int	ret;
 	int	sign;

@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 02:47:52 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 21:23:09 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/11/29 21:32:41 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	eating(t_philo *ph)
 	pthread_mutex_unlock(ph->r_f);
 	pthread_mutex_unlock(ph->l_f);
 	ph->n_eat++;
-	ph->time = get_time();					
+	ph->time = get_time();
 	ft_usleep(ph->arg->t_eat);
 }
 
