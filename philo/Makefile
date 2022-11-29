@@ -4,9 +4,12 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -pthread
 
-SRC =	src/check_in.c \
-		src/philo.c \
-		src/philo_alloc.c
+SRC =	src/check_args.c \
+		src/init.c \
+		src/philo_utils.c \
+		src/philo_status.c \
+		src/philo_thread.c \
+		src/philo.c
 
 OBJS = $(SRC:.c=.o)
 

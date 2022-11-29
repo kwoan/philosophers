@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_in.c                                         :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/27 00:04:32 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/27 00:26:48 by kwpark           ###   ########.fr       */
+/*   Created: 2022/11/29 03:29:28 by kwpark            #+#    #+#             */
+/*   Updated: 2022/11/29 16:37:29 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 long    get_time(void)
 {
@@ -22,7 +22,26 @@ long    get_time(void)
 	return (ret);
 }
 
-static int		ft_atoi(const char *str)
+void	ft_usleep(int ms)
+{
+	long	time;
+
+	time = get_time();
+	usleep(ms * 920);
+	while (get_time() < time + ms)
+		usleep(ms * 3);
+}
+
+// void	ft_usleep(int time)
+// {
+// 	long	curr;
+
+// 	curr = get_time();
+// 	while (get_time() - curr < (long)time)
+// 		usleep(50);
+// }
+
+int		ft_atoi(const char *str)
 {
 	int	ret;
 	int	sign;
@@ -43,30 +62,4 @@ static int		ft_atoi(const char *str)
 		str++;
 	}
 	return (ret * sign);
-}
-
-static t_bool	ft_isdigit(char *str)
-{
-	while (*str)
-	{
-		if (!(*str >= '0' && *str <= '9'))
-			return (FALSE);
-	}
-	return (TRUE);
-}
-
-t_bool	check_in(int ac, char **av)
-{
-	int	i;
-
-	i = 1;
-	if (ac > 5 || ac < 6)
-		return (FALSE);
-	while (i < ac)
-	{
-		if (!ft_isdigit(av[i]) || (ft_atoi(av[i]) <= 0))
-			return (FALSE);
-		i++;
-	}
-	return (TRUE);
 }
