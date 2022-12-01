@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:38:53 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/02 05:49:54 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/02 06:36:20 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	_init(t_args *args)
 	i = -1;
 	while (++i < args->n_philos)
 	{
-		args->philos[i].l_f = &args->forks[i];
-		args->philos[i].r_f = &args->forks[(i + 1) % args->n_philos];
+		args->philos[i].r_f = &args->forks[i];
+		args->philos[i].l_f = &args->forks[(i + 1) % args->n_philos];
 	}
 }
 
