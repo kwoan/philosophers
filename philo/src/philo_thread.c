@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 23:12:03 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 21:36:56 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/02 05:16:33 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	philo_die(t_philo *ph)
 	while (i < ph->arg->n_philos)
 		ph->arg->philos[i++].stop = 1;
 	pthread_mutex_unlock(&ph->arg->print_mutex);
+	all_mutex_destroy(ph->arg);
 }
 
 int	check_enough_to_eat(t_philo *ph)
@@ -31,15 +32,18 @@ int	check_enough_to_eat(t_philo *ph)
 	int	i;
 
 	i = 0;
+	if (!(ph->arg->num_to_eat > 0))
+		return (0);
 	while (i < ph->arg->n_philos)
 	{
-		if (ph->arg->philos[i].n_eat != ph->arg->num_to_eat)
+		if (ph->arg->philos[i].n_eat < ph->arg->num_to_eat)
 			return (0);
 		i++;
 	}
 	i = 0;
 	while (i < ph->arg->n_philos)
 		ph->arg->philos[i++].stop = 1;
+	all_mutex_destroy(ph->arg);
 	return (1);
 }
 
@@ -75,20 +79,20 @@ void	*ft_monitor(void *arg)
 
 	args = (t_args *)arg;
 	i = 0;
-	while (!args->philos[i].stop)
+	while (1)
 	{
-		i = 0;
-		while (i < args->n_philos)
+		if (i == args->n_philos)
+			i = 0;
+		if (args->philos[i].stop == 1)
+			break ;
+		if (get_time() - args->philos[i].time > args->t_die)
 		{
-			if (get_time() - args->philos[i].time > args->t_die)
-			{
-				philo_die(&args->philos[i]);
-				return (NULL);
-			}
-			i++;
+			philo_die(&args->philos[i]);
+			break ;
 		}
-		if (check_enough_to_eat(args->philos))
-			return (NULL);
+		if (check_enough_to_eat(args->philos) || args->philos[i].stop)
+			break ;
+		i++;
 	}
 	return (NULL);
 }
@@ -105,6 +109,8 @@ void	philo_thread(t_args *args)
 			ft_thread, (void *)&args->philos[i]);
 	pthread_create(&monitor_thr, NULL, ft_monitor, (void *)args);
 	pthread_join(monitor_thr, NULL);
+	if (args->n_philos == 1)
+		pthread_mutex_unlock(&args->forks[0]);
 	i = -1;
 	while (++i < args->n_philos)
 		pthread_join(args->philos[i].thr, NULL);

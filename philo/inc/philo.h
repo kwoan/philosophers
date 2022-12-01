@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:03:23 by kwpark            #+#    #+#             */
-/*   Updated: 2022/11/29 21:31:34 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/02 05:16:15 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ void	eating(t_philo *ph);
 void	sleeping(t_philo *ph);
 void	thinking(t_philo *ph);
 void	philo_thread(t_args *args);
+void	all_mutex_destroy(t_args *args);
+void	free_all(t_args *args);
 
 #endif

@@ -9,7 +9,8 @@ SRC =	src/check_args.c \
 		src/philo_utils.c \
 		src/philo_status.c \
 		src/philo_thread.c \
-		src/philo.c
+		src/philo.c \
+		src/free_all.c
 
 OBJS = $(SRC:.c=.o)
 
