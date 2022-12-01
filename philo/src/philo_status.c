@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 02:47:52 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/02 04:52:15 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/02 05:50:05 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	set_forks(t_philo *ph)
 {	
 	if (ph->philo_nbr % 2 == 1 && ph->philo_nbr != ph->arg->n_philos)
 	{
-		pthread_mutex_lock(ph->r_f);
 		pthread_mutex_lock(ph->l_f);
+		pthread_mutex_lock(ph->r_f);
 	}
 	else
 	{
-		pthread_mutex_lock(ph->l_f);
 		pthread_mutex_lock(ph->r_f);
+		pthread_mutex_lock(ph->l_f);
 	}
 	if (!ph->stop)
 	{
