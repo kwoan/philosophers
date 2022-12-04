@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/04 13:57:39 by kwpark            #+#    #+#              #
-#    Updated: 2022/12/04 13:57:40 by kwpark           ###   ########.fr        #
+#    Created: 2022/12/04 13:57:34 by kwpark            #+#    #+#              #
+#    Updated: 2022/12/04 18:56:51 by kwpark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_bonus
 
 CC = cc
 
@@ -20,9 +20,8 @@ SRC =	src/check_args.c \
 		src/init.c \
 		src/philo_utils.c \
 		src/philo_status.c \
-		src/philo_thread.c \
-		src/philo.c \
-		src/free_all.c
+		src/philo_process.c \
+		src/philo_bonus.c
 
 OBJS = $(SRC:.c=.o)
 
