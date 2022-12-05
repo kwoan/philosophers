@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:23:43 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:54:04 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/06 01:02:58 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ void	ft_exit(t_args *args, int *pids, int size)
 	if (size == args->n_philos)
 		return (free(pids), free_exit(args->philos, 0));
 	waitpid(-1, &status, 0);
-	if (WIFEXITED(status))
+	// if (WIFEXITED(status))
+	if ((status & 0x7f) == 0)
 	{
-		if (WEXITSTATUS(status) == 1)
+		// if (WEXITSTATUS(status) == 1)
+		if ((((status) & 0xff00) >> 8) == 1)
 		{
 			i = -1;
 			while (++i < args->n_philos)
