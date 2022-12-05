@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:58:21 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:11:44 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/05 22:54:38 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool	init(t_args *args, int ac, char **av)
 	args->philos = malloc(sizeof(t_philo) * args->n_philos);
 	if (!args->philos)
 		return (FAILURE);
-    while (++i < args->n_philos)
+	while (++i < args->n_philos)
 	{
 		args->philos[i].n_eat = 0;
 		args->philos[i].time = args->time;

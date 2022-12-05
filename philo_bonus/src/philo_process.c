@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:23:43 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:16:33 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/05 22:54:04 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	philo_action(t_philo *ph)
 			exit(1);
 		}
 		if (ph->arg->num_to_eat > 0)
-			if(ph->n_eat >= ph->arg->num_to_eat)	
+			if (ph->n_eat >= ph->arg->num_to_eat)
 				exit(0);
 		usleep(50);
 	}

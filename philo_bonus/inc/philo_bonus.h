@@ -6,12 +6,12 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:03:23 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:11:29 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/05 22:52:32 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -21,9 +21,6 @@
 # include <pthread.h>
 # include <semaphore.h>
 # include <signal.h>
-
-# define DIE 5
-# define FULL 6
 
 struct	s_args;
 
@@ -60,16 +57,12 @@ t_bool	check_args(int ac, char **av);
 int		ft_atoi(const char *str);
 void	ft_usleep(int ms);
 t_bool	init(t_args *args, int ac, char **av);
-
 t_bool	init_semaphore(t_args *args);
-
 pid_t	*philo_process(t_args *args);
-
 void	set_forks(t_philo *ph);
 void	eating(t_philo *ph);
 void	sleeping(t_philo *ph);
 void	thinking(t_philo *ph);
-
 void	free_exit(t_philo *philos, int exit_sig);
 void	ft_exit(t_args *args, int *pid, int size);
 
