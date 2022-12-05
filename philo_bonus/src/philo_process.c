@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:23:43 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/04 18:54:13 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/05 22:16:33 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	*ft_thread(void *arg)
 		eating(ph);
 		sleeping(ph);
 		thinking(ph);
+		usleep(50);
 	}
 }
 
@@ -35,9 +36,16 @@ void	philo_action(t_philo *ph)
 	while (1)
 	{
 		if (get_time() - ph->time > ph->arg->t_die)
+		{
+			sem_wait(ph->arg->print_sem);
+			printf("%ld %d died\n", \
+				get_time() - ph->arg->time, ph->philo_nbr);
 			exit(1);
-		if (ph->n_eat >= ph->arg->num_to_eat)
-			exit(0);
+		}
+		if (ph->arg->num_to_eat > 0)
+			if(ph->n_eat >= ph->arg->num_to_eat)	
+				exit(0);
+		usleep(50);
 	}
 }
 
@@ -49,16 +57,51 @@ pid_t	*philo_process(t_args *args)
 
 	i = -1;
 	if (init_semaphore(args))
-		return (FAILURE);
+		free_exit(args->philos, 1);
 	pids = malloc(sizeof(pid_t) * args->n_philos);
 	if (!pids)
-		return (FAILURE);
+		free_exit(args->philos, 1);
 	while (++i < args->n_philos)
 	{
 		pid = fork();
 		if (pid == 0)
 			philo_action(&args->philos[i]);
+		else if (pid == -1)
+		{
+			while (--i >= 0)
+				kill(pids[i], SIGKILL);
+			free_exit(args->philos, 1);
+		}
 		else
 			pids[i] = pid;
 	}
+	return (pids);
+}
+
+void	ft_exit(t_args *args, int *pids, int size)
+{
+	int	status;
+	int	i;
+
+	if (size == args->n_philos)
+		return (free(pids), free_exit(args->philos, 0));
+	waitpid(-1, &status, 0);
+	if (WIFEXITED(status))
+	{
+		if (WEXITSTATUS(status) == 1)
+		{
+			i = -1;
+			while (++i < args->n_philos)
+				kill(pids[i], SIGKILL);
+		}
+		else
+			return (ft_exit(args, pids, size + 1));
+	}
+	else
+	{
+		i = -1;
+		while (++i < args->n_philos)
+			kill(pids[i], SIGKILL);
+	}
+	return (free(pids), free_exit(args->philos, 0));
 }

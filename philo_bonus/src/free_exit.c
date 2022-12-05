@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_bonus.c                                      :+:      :+:    :+:   */
+/*   free_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 18:25:01 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:11:34 by kwpark           ###   ########.fr       */
+/*   Created: 2022/12/04 23:32:12 by kwpark            #+#    #+#             */
+/*   Updated: 2022/12/05 00:11:27 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo_bonus.h"
 
-int	main(int ac, char **av)
+void	free_exit(t_philo *philos, int exit_sig)
 {
-	t_args	args;
-	int		*pids;
+	free(philos);
+	exit(exit_sig);
+}
 
-	if (check_args(ac, av))
-		return (FAILURE);
-	if (init(&args, ac, av))
-		return (FAILURE);
-	pids = philo_process(&args);
-	sem_close(args.print_sem);
-	sem_close(args.forks);
-	ft_exit(&args, pids, 0);
+void	kill_pids(t_args *args, int *pids)
+{
+	int	i;
+
+	i = -1;
+	while (++i < args->n_philos)
+		kill(pids[i], SIGKILL);
+	free(pids);
 }
