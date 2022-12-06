@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:23:43 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/06 06:25:24 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/06 18:10:40 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*ft_thread(void *arg)
 	t_philo	*ph;
 
 	ph = (t_philo *)arg;
+	if (!(ph->philo_nbr & 1))
+		ft_usleep(ph->arg->t_eat / 2);
 	while (1)
 	{
 		set_forks(ph);
@@ -42,9 +44,6 @@ void	philo_action(t_philo *ph)
 				get_time() - ph->arg->time, ph->philo_nbr);
 			exit(1);
 		}
-		if (ph->arg->num_to_eat > 0)
-			if (ph->n_eat >= ph->arg->num_to_eat)
-				exit(0);
 		usleep(50);
 	}
 }
@@ -86,10 +85,8 @@ void	ft_exit(t_args *args, int *pids, int size)
 	if (size == args->n_philos)
 		return (free(pids), free_exit(args->philos, 0));
 	waitpid(-1, &status, 0);
-	// if (WIFEXITED(status))
 	if ((status & 0x7f) == 0)
 	{
-		// if (WEXITSTATUS(status) == 1)
 		if ((((status) & 0xff00) >> 8) == 1)
 		{
 			i = -1;

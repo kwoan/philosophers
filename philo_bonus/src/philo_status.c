@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:39:09 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:56:39 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/06 18:09:31 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	eating(t_philo *ph)
 	sem_post(ph->arg->forks);
 	sem_post(ph->arg->forks);
 	ph->n_eat++;
+	if (ph->arg->num_to_eat > 0)
+		if (ph->n_eat >= ph->arg->num_to_eat)
+			exit(0);
 }
 
 void	sleeping(t_philo *ph)
