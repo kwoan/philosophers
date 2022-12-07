@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 02:47:52 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/02 06:36:18 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 15:51:34 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	set_forks(t_philo *ph)
 		pthread_mutex_lock(ph->r_f);
 		pthread_mutex_lock(ph->l_f);
 	}
+	pthread_mutex_lock(&ph->arg->stop_mutex);
 	if (!ph->stop)
 	{
 		pthread_mutex_lock(&ph->arg->print_mutex);
@@ -33,6 +34,7 @@ void	set_forks(t_philo *ph)
 			get_time() - ph->arg->time, ph->philo_nbr);
 		pthread_mutex_unlock(&ph->arg->print_mutex);
 	}
+	pthread_mutex_unlock(&ph->arg->stop_mutex);
 }
 
 void	eating(t_philo *ph)
@@ -41,8 +43,12 @@ void	eating(t_philo *ph)
 	printf("%ld %d is eating\n", \
 		get_time() - ph->arg->time, ph->philo_nbr);
 	pthread_mutex_unlock(&ph->arg->print_mutex);
+	pthread_mutex_lock(&ph->arg->n_eat_mutex);
 	ph->n_eat++;
+	pthread_mutex_unlock(&ph->arg->n_eat_mutex);
+	pthread_mutex_lock(&ph->arg->time_mutex);
 	ph->time = get_time();
+	pthread_mutex_unlock(&ph->arg->time_mutex);
 	ft_usleep(ph->arg->t_eat);
 	pthread_mutex_unlock(ph->r_f);
 	pthread_mutex_unlock(ph->l_f);

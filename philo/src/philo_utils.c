@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 03:29:28 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/02 04:57:22 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 15:43:56 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,26 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (ret * sign);
+}
+
+int	check_n_eat(t_philo *ph, int i)
+{
+	int	ret;
+
+	pthread_mutex_lock(&ph->arg->n_eat_mutex);
+	ret = (ph->arg->philos[i].n_eat < ph->arg->num_to_eat);
+	pthread_mutex_unlock(&ph->arg->n_eat_mutex);
+	return (ret);
+}
+
+int	check_dead_stop(t_philo *ph)
+{
+	int	ret;
+
+	pthread_mutex_lock(&ph->arg->dead_mutex);
+	pthread_mutex_lock(&ph->arg->stop_mutex);
+	ret = (ph->arg->dead || ph->stop);
+	pthread_mutex_unlock(&ph->arg->stop_mutex);
+	pthread_mutex_unlock(&ph->arg->dead_mutex);
+	return (ret);
 }
