@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:58:21 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:54:38 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 08:58:22 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_bool	init(t_args *args, int ac, char **av)
 	if (ac == 6)
 		args->num_to_eat = ft_atoi(av[5]);
 	args->time = get_time();
-	args->full_philos = 0;
 	args->philos = malloc(sizeof(t_philo) * args->n_philos);
 	if (!args->philos)
 		return (FAILURE);
@@ -43,10 +42,12 @@ t_bool	init_semaphore(t_args *args)
 {
 	sem_unlink("forks");
 	sem_unlink("print_sem");
-	sem_unlink("kill_sem");
+	sem_unlink("time_sem");
 	args->forks = sem_open("forks", O_CREAT | O_EXCL, S_IRWXU, args->n_philos);
 	args->print_sem = sem_open("print_sem", O_CREAT | O_EXCL, S_IRWXU, 1);
-	if (args->forks == SEM_FAILED || args->print_sem == SEM_FAILED)
+	args->time_sem = sem_open("time_sem", O_CREAT | O_EXCL, S_IRWXU, 1);
+	if (args->forks == SEM_FAILED \
+		|| args->print_sem == SEM_FAILED || args->time_sem == SEM_FAILED)
 	{
 		free(args->philos);
 		return (FAILURE);

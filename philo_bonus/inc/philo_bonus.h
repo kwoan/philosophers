@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:03:23 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/06 18:11:52 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 08:57:25 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ typedef struct s_args
 	int				t_eat;
 	int				t_sleep;
 	int				num_to_eat;
-	int				full_philos;
 	long			time;
 	t_philo			*philos;
 	sem_t			*forks;
 	sem_t			*print_sem;
+	sem_t			*time_sem;
 }	t_args;
 
 long	get_time(void);

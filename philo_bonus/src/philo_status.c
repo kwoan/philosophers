@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:39:09 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/06 18:09:31 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 08:59:37 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	eating(t_philo *ph)
 	printf("%ld %d is eating\n", \
 		get_time() - ph->arg->time, ph->philo_nbr);
 	sem_post(ph->arg->print_sem);
+	sem_wait(ph->arg->time_sem);
 	ph->time = get_time();
+	sem_post(ph->arg->time_sem);
 	ft_usleep(ph->arg->t_eat);
 	sem_post(ph->arg->forks);
 	sem_post(ph->arg->forks);
