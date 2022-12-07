@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:39:09 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/07 08:59:37 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 16:20:16 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ void	eating(t_philo *ph)
 	ft_usleep(ph->arg->t_eat);
 	sem_post(ph->arg->forks);
 	sem_post(ph->arg->forks);
+	sem_wait(ph->arg->n_eat_sem);
 	ph->n_eat++;
+	sem_post(ph->arg->n_eat_sem);
 	if (ph->arg->num_to_eat > 0)
-		if (ph->n_eat >= ph->arg->num_to_eat)
+		if (check_n_eat(ph))
 			exit(0);
 }
 

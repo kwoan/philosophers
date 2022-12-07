@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:03:23 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/07 08:57:25 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 16:23:28 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_args
 	sem_t			*forks;
 	sem_t			*print_sem;
 	sem_t			*time_sem;
+	sem_t			*n_eat_sem;
 }	t_args;
 
 long	get_time(void);
@@ -65,5 +66,6 @@ void	sleeping(t_philo *ph);
 void	thinking(t_philo *ph);
 void	free_exit(t_philo *philos, int exit_sig);
 void	ft_exit(t_args *args, int *pid, int size);
+int		check_n_eat(t_philo *ph);
 
 #endif

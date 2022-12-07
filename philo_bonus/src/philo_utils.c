@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 03:29:28 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/04 18:57:27 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/07 16:19:27 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (ret * sign);
+}
+
+int	check_n_eat(t_philo *ph)
+{
+	int	ret;
+
+	sem_wait(ph->arg->n_eat_sem);
+	ret = (ph->n_eat >= ph->arg->num_to_eat);
+	sem_post(ph->arg->n_eat_sem);
+	return (ret);
 }
