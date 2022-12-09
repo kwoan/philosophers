@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:20:08 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/02 05:04:52 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 13:41:46 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int ac, char **av)
 	if (init(&args, ac, av))
 		return (FAILURE);
 	philo_thread(&args);
+	all_mutex_destroy(&args);
 	free_all(&args);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 03:29:28 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/07 16:18:01 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 14:19:45 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,23 @@ long	get_time(void)
 	return (ret);
 }
 
-void	ft_usleep(int time)
-{
-	long	curr;
+// void	ft_usleep(int time)
+// {
+// 	long	curr;
 
-	curr = get_time();
-	while (get_time() - curr < (long)time)
-		usleep(50);
+// 	curr = get_time();
+// 	usleep(time * 800);
+// 	while (get_time() - curr < (long)time)
+// 		usleep(500);
+// 		// usleep(50);
+// }
+
+void	ft_usleep(long start, int time)
+{
+	usleep(time * 800);
+	while (get_time() - start < (long)time)
+		usleep(300);
+		// usleep(50);
 }
 
 int	ft_atoi(const char *str)
@@ -54,24 +64,17 @@ int	ft_atoi(const char *str)
 	return (ret * sign);
 }
 
-int	check_n_eat(t_philo *ph, int i)
+long	print_out(t_philo *ph, char *s)
 {
-	int	ret;
+	long	time;
 
-	pthread_mutex_lock(&ph->arg->n_eat_mutex);
-	ret = (ph->arg->philos[i].n_eat < ph->arg->num_to_eat);
-	pthread_mutex_unlock(&ph->arg->n_eat_mutex);
-	return (ret);
-}
-
-int	check_dead_stop(t_philo *ph)
-{
-	int	ret;
-
-	pthread_mutex_lock(&ph->arg->dead_mutex);
-	pthread_mutex_lock(&ph->arg->stop_mutex);
-	ret = (ph->arg->dead || ph->stop);
-	pthread_mutex_unlock(&ph->arg->stop_mutex);
-	pthread_mutex_unlock(&ph->arg->dead_mutex);
-	return (ret);
+	pthread_mutex_lock(&ph->arg->print_mutex);
+	time = get_time();
+	if (!ph->arg->dead && !ph->stop)
+	{
+		printf("%ld %d %s\n", \
+			time - ph->arg->time, ph->philo_nbr, s);
+	}
+	pthread_mutex_unlock(&ph->arg->print_mutex);
+	return (time);
 }

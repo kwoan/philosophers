@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:03:23 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/07 15:44:47 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 14:19:09 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ typedef struct s_args
 long	get_time(void);
 t_bool	check_args(int ac, char **av);
 int		ft_atoi(const char *str);
-void	ft_usleep(int ms);
+// void	ft_usleep(int ms);
+void	ft_usleep(long start, int ms);
 t_bool	init(t_args *args, int ac, char **av);
 void	set_forks(t_philo *ph);
 void	eating(t_philo *ph);
@@ -70,7 +71,6 @@ void	thinking(t_philo *ph);
 void	philo_thread(t_args *args);
 void	all_mutex_destroy(t_args *args);
 void	free_all(t_args *args);
-int		check_n_eat(t_philo *ph, int i);
-int		check_dead_stop(t_philo *ph);
+long	print_out(t_philo *ph, char *s);
 
 #endif
