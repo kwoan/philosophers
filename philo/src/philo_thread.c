@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 23:12:03 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/09 14:56:42 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 15:35:45 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,14 @@ void	*ft_thread(void *arg)
 
 	ph = (t_philo *)arg;
 	if (ph->philo_nbr % 2 == 0)
-	{
 		usleep(ph->arg->t_eat * 800);
-	}
 	while (!ph->arg->dead)
 	{
 		if ((ph->arg->dead || ph->stop))
 			return (NULL);
 		set_forks(ph);
 		if ((ph->arg->dead || ph->stop))
-		{
-			pthread_mutex_unlock(ph->l_f);
-			pthread_mutex_unlock(ph->r_f);
 			return (NULL);
-		}
 		eating(ph);
 		if ((ph->arg->dead || ph->stop))
 			return (NULL);
@@ -94,13 +88,8 @@ void	*ft_monitor(void *arg)
 			usleep(200);
 			i = 0;
 		}
-		// pthread_mutex_lock(&args->dead_mutex);
 		if (args->philos[i].stop == 1)
-		{
-			// pthread_mutex_unlock(&args->dead_mutex);
 			break ;
-		}
-		// pthread_mutex_unlock(&args->dead_mutex);
 		if (get_time() - args->philos[i].time > args->t_die)
 		{
 			philo_die(&args->philos[i]);
@@ -131,5 +120,4 @@ void	philo_thread(t_args *args)
 	i = -1;
 	while (++i < args->n_philos)
 		pthread_join(args->philos[i].thr, NULL);
-		
 }

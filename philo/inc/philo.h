@@ -6,7 +6,7 @@
 /*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:03:23 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/09 14:19:09 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 15:16:45 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,11 @@ typedef struct s_args
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	dead_mutex;
-	pthread_mutex_t	time_mutex;
-	pthread_mutex_t	n_eat_mutex;
-	pthread_mutex_t	stop_mutex;
 }	t_args;
 
 long	get_time(void);
 t_bool	check_args(int ac, char **av);
 int		ft_atoi(const char *str);
-// void	ft_usleep(int ms);
 void	ft_usleep(long start, int ms);
 t_bool	init(t_args *args, int ac, char **av);
 void	set_forks(t_philo *ph);
