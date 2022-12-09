@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 03:29:28 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/07 16:19:27 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 16:10:27 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ long	get_time(void)
 	return (ret);
 }
 
-void	ft_usleep(int time)
+void	ft_usleep(long start, int time)
 {
-	long	curr;
-
-	curr = get_time();
-	while (get_time() - curr < (long)time)
-		usleep(50);
+	usleep(time * 800);
+	while (get_time() - start < (long)time)
+		usleep(300);
 }
 
 int	ft_atoi(const char *str)
@@ -54,12 +52,14 @@ int	ft_atoi(const char *str)
 	return (ret * sign);
 }
 
-int	check_n_eat(t_philo *ph)
+long	print_out(t_philo *ph, char *s)
 {
-	int	ret;
+	long	time;
 
-	sem_wait(ph->arg->n_eat_sem);
-	ret = (ph->n_eat >= ph->arg->num_to_eat);
-	sem_post(ph->arg->n_eat_sem);
-	return (ret);
+	sem_wait(ph->arg->print_sem);
+	time = get_time();
+	printf("%ld %d %s\n", \
+		time - ph->arg->time, ph->philo_nbr, s);
+	sem_post(ph->arg->print_sem);
+	return (time);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:25:01 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/05 22:53:55 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 16:06:41 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	main(int ac, char **av)
 	pids = philo_process(&args);
 	sem_close(args.print_sem);
 	sem_close(args.forks);
+	sem_close(args.time_sem);
 	ft_exit(&args, pids, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 18:23:43 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/07 09:02:09 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 16:18:20 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,32 @@ void	*ft_thread(void *arg)
 
 	ph = (t_philo *)arg;
 	if (!(ph->philo_nbr & 1))
-		ft_usleep(ph->arg->t_eat / 2);
+		usleep(ph->arg->t_eat * 800);
 	while (1)
 	{
 		set_forks(ph);
 		eating(ph);
 		sleeping(ph);
 		thinking(ph);
-		usleep(50);
 	}
 }
 
 void	philo_action(t_philo *ph)
 {
 	pthread_t	thr;
-	long		time_tmp;
 
 	pthread_create(&thr, NULL, ft_thread, ph);
 	pthread_detach(thr);
 	while (1)
 	{
-		sem_wait(ph->arg->time_sem);
-		time_tmp = get_time() - ph->time;
-		sem_post(ph->arg->time_sem);
-		if (time_tmp >= ph->arg->t_die)
+		if (get_time() - ph->time > ph->arg->t_die)
 		{
 			sem_wait(ph->arg->print_sem);
 			printf("%ld %d died\n", \
 				get_time() - ph->arg->time, ph->philo_nbr);
 			exit(1);
 		}
-		usleep(50);
+		usleep(200);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kwpark <kwpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kwpark <kwpark@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 00:03:23 by kwpark            #+#    #+#             */
-/*   Updated: 2022/12/07 16:23:28 by kwpark           ###   ########.fr       */
+/*   Updated: 2022/12/09 16:11:16 by kwpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,12 @@ typedef struct s_args
 	sem_t			*forks;
 	sem_t			*print_sem;
 	sem_t			*time_sem;
-	sem_t			*n_eat_sem;
 }	t_args;
 
 long	get_time(void);
 t_bool	check_args(int ac, char **av);
 int		ft_atoi(const char *str);
-void	ft_usleep(int ms);
+void	ft_usleep(long start, int time);
 t_bool	init(t_args *args, int ac, char **av);
 t_bool	init_semaphore(t_args *args);
 pid_t	*philo_process(t_args *args);
@@ -66,6 +65,6 @@ void	sleeping(t_philo *ph);
 void	thinking(t_philo *ph);
 void	free_exit(t_philo *philos, int exit_sig);
 void	ft_exit(t_args *args, int *pid, int size);
-int		check_n_eat(t_philo *ph);
+long	print_out(t_philo *ph, char *s);
 
 #endif
